@@ -5,14 +5,15 @@ This project runs the MySQL database and Express API in Docker. The Expo fronten
 ## First setup
 
 1. Install and start Docker Desktop.
-2. From the repository root, copy the example environment file and set a MySQL root password:
+2. Optionally, from the repository root, copy the example environment file to override the local demo credentials:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-The example uses `change-me`; replace it with a strong local password before
-starting the database. The root `.env` file is ignored by Git.
+Without a `.env` file, Docker Compose uses the demo password `change-me`.
+This is intended only for local development; change it before exposing the
+database or deploying the project. The root `.env` file is ignored by Git.
 
 3. Start MySQL and the backend:
 
@@ -68,3 +69,8 @@ The SQL backup replaces the app's tables with the saved LearningWebsite snapshot
 ## Networking
 
 The backend connects to MySQL with `DB_HOST=db` and internal port `3306`, because `db` is the Compose service name. Docker publishes MySQL on host port `3307` to avoid conflicts with a locally installed MySQL server. The browser connects to the backend with `http://localhost:5000/api`, because port 5000 is published to the host.
+
+For running the backend directly against a local MySQL instance, the defaults
+are `localhost`, user `root`, password `change-me`, and database `learn_schema`.
+Set `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` in
+`backend/.env` to match your local database as needed.

@@ -17,11 +17,14 @@ database, quiz content, and topic image uploads.
 
 Requirements: Docker Desktop with Docker Compose.
 
-1. Copy the example environment file and set a MySQL root password:
+1. Optionally copy the example environment file to override the local demo credentials:
 
    ```powershell
    Copy-Item .env.example .env
    ```
+
+   Without a `.env` file, Docker Compose uses the local demo password
+   `change-me`. Change it before exposing the database or deploying the project.
 
 2. Start the database and API from the project root:
 
@@ -56,7 +59,7 @@ Open `http://localhost:8081`. For a physical device, set
 
 ## Local backend development
 
-Create `backend/.env` from the example and configure the database connection:
+For a local MySQL instance, create `backend/.env` from the example and configure the database connection:
 
 ```powershell
 Copy-Item backend/.env.example backend/.env
@@ -65,8 +68,10 @@ npm ci
 npm start
 ```
 
-`backend/.env` is ignored by Git. Set `DB_HOST`, `DB_PORT`, `DB_USER`,
-`DB_PASSWORD`, and `DB_NAME` to match your local MySQL instance.
+`backend/.env` is ignored by Git. The backend defaults to the local demo
+credentials (`localhost`, `root`, `change-me`, and `learn_schema`); set
+`DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASSWORD`, and `DB_NAME` as needed to
+match your MySQL instance.
 
 ## Restore the database snapshot
 
