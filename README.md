@@ -40,8 +40,16 @@ Requirements: Docker Desktop with Docker Compose.
    ```
 
 The database initialization scripts import the supplied demo content when the
-MySQL data volume is first created. The backend loads `topic_uploads.tar.gz`
-into its persistent uploads volume on first startup.
+MySQL data volume is first created. The complete database snapshot is
+`backend/mysql-init/014-seed-learningwebsite.sql`; the root-level
+`learningwebsite-utf8.sql` is an identical copy for manual use, and
+`learningwebsite.sql` is an additional supplied snapshot. The backend loads
+`topic_uploads.tar.gz` into its persistent uploads volume on first startup.
+
+These are checked-in snapshots, not a connection to another device's live
+database. Changes made to a running database are not automatically included in
+Git; export and commit a refreshed snapshot when you need to transfer those
+changes.
 
 ## Run the frontend
 

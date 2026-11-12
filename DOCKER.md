@@ -55,7 +55,20 @@ docker compose down -v
 docker compose up --build -d
 ```
 
-On first startup, MySQL creates the schema and imports the `learningwebsite-utf8.sql` backup, which contains the LearningWebsite Python and Robotics L1-L14 topics, quizzes, and YouTube links. The backend extracts the matching `topic_uploads.tar.gz` archive into the persistent uploads volume once. Initialization scripts run only when the MySQL data volume is created for the first time. To apply initialization changes to a fresh database, use `docker compose down -v` and then start the stack again.
+On first startup, MySQL creates the schema and runs the SQL files in
+`backend/mysql-init/` in filename order. The complete saved database snapshot
+is `014-seed-learningwebsite.sql`; it contains the LearningWebsite Python and
+Robotics L1-L14 topics, quizzes, and YouTube links. The root-level
+`learningwebsite-utf8.sql` is an identical copy for manual use, while
+`learningwebsite.sql` is an additional supplied snapshot. The backend extracts
+`topic_uploads.tar.gz` into the persistent uploads volume once.
+Initialization scripts run only when the MySQL data volume is first created.
+To apply them to a fresh database, use `docker compose down -v` and then start
+the stack again.
+
+These checked-in SQL files are snapshots; new or changed records in a running
+database are not automatically copied into Git. Export and commit a refreshed
+snapshot when transferring later database changes to another device.
 
 For an already-initialized database volume, restore the LearningWebsite backup without deleting the database volume:
 
